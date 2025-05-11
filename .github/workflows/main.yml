@@ -20,8 +20,8 @@ jobs:
           remote_path: ${{ secrets.REMOTE_PATH }}
       - name: Kill old bot process via rsh
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.REMOTE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "pkill -9 -f run_bot.sh || echo 'No process found'"
-          rm ~/.ssh/deploy_key
+            mkdir -p ~/.ssh
+            echo "${{ secrets.REMOTE_KEY }}" > ~/.ssh/deploy_key
+            chmod 600 ~/.ssh/deploy_key
+            ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "pkill -9 -f run_bot.sh || echo 'No process found'" || true
+            rm ~/.ssh/deploy_key
